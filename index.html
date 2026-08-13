@@ -1,287 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyPulse</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            background: #f4f6f8;
-            color: #222;
-            padding: 30px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-        }
-
-        header {
-            background: #222;
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
-
-        header h1 {
-            margin-bottom: 8px;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-        }
-
-        .card h2 {
-            margin-top: 8px;
-        }
-
-        .form {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-
-        input, select, button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-
-        button {
-            background: #222;
-            color: white;
-            cursor: pointer;
-            border: none;
-        }
-
-        button:hover {
-            opacity: 0.85;
-        }
-
-        .sessions {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-        }
-
-        .session {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .delete {
-            width: auto;
-            background: #d9534f;
-            padding: 8px 12px;
-            margin: 0;
-        }
-
-        .progress {
-            height: 12px;
-            background: #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: #222;
-            transition: 0.3s;
-        }
-
-        @media (max-width: 650px) {
-            .cards {
-                grid-template-columns: 1fr;
-            }
-
-            body {
-                padding: 15px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <header>
-        <h1>StudyPulse</h1>
-        <p>Track your study sessions and build better habits.</p>
-    </header>
-
-    <div class="cards">
-        <div class="card">
-            <p>Total Sessions</p>
-            <h2 id="totalSessions">0</h2>
-        </div>
-
-        <div class="card">
-            <p>Total Minutes</p>
-            <h2 id="totalMinutes">0</h2>
-        </div>
-
-        <div class="card">
-            <p>Study Goal</p>
-            <h2>120 min</h2>
-        </div>
-    </div>
-
-    <div class="card" style="margin-bottom:20px;">
-        <p>Today's Progress</p>
-
-        <div class="progress">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-
-        <p id="progressText" style="margin-top:8px;">0%</p>
-    </div>
-
-    <div class="form">
-        <h2>Add Study Session</h2>
-
-        <input type="text" id="subject" placeholder="Subject">
-
-        <input type="number" id="minutes" placeholder="Study duration (minutes)">
-
-        <select id="type">
-            <option value="Study">Study</option>
-            <option value="Revision">Revision</option>
-            <option value="Practice">Practice</option>
-        </select>
-
-        <button onclick="addSession()">Add Session</button>
-    </div>
-
-    <div class="sessions">
-        <h2>Recent Sessions</h2>
-
-        <div id="sessionList">
-            <p style="margin-top:15px;">No study sessions yet.</p>
-        </div>
-    </div>
-
-</div>
-
-<script>
-
-    let sessions = JSON.parse(localStorage.getItem("studySessions")) || [];
-
-    function addSession() {
-
-        const subject = document.getElementById("subject").value.trim();
-        const minutes = Number(document.getElementById("minutes").value);
-        const type = document.getElementById("type").value;
-
-        if (subject === "" || minutes <= 0) {
-            alert("Please enter a subject and valid study duration.");
-            return;
-        }
-
-        const session = {
-            subject: subject,
-            minutes: minutes,
-            type: type,
-            date: new Date().toLocaleDateString()
-        };
-
-        sessions.push(session);
-
-        localStorage.setItem("studySessions", JSON.stringify(sessions));
-
-        document.getElementById("subject").value = "";
-        document.getElementById("minutes").value = "";
-
-        displaySessions();
-    }
-
-    function deleteSession(index) {
-
-        sessions.splice(index, 1);
-
-        localStorage.setItem("studySessions", JSON.stringify(sessions));
-
-        displaySessions();
-    }
-
-    function displaySessions() {
-
-        const list = document.getElementById("sessionList");
-
-        list.innerHTML = "";
-
-        let totalMinutes = 0;
-
-        sessions.forEach((session, index) => {
-
-            totalMinutes += session.minutes;
-
-            const div = document.createElement("div");
-
-            div.className = "session";
-
-            div.innerHTML = `
-                <div>
-                    <strong>${session.subject}</strong>
-                    <p>${session.type} • ${session.minutes} minutes</p>
-                    <small>${session.date}</small>
-                </div>
-
-                <button class="delete" onclick="deleteSession(${index})">
-                    Delete
-                </button>
-            `;
-
-            list.appendChild(div);
-        });
-
-        document.getElementById("totalSessions").textContent = sessions.length;
-
-        document.getElementById("totalMinutes").textContent = totalMinutes;
-
-        let percentage = Math.min((totalMinutes / 120) * 100, 100);
-
-        document.getElementById("progressBar").style.width = percentage + "%";
-
-        document.getElementById("progressText").textContent =
-            Math.round(percentage) + "% completed";
-
-        if (sessions.length === 0) {
-            list.innerHTML = "<p style='margin-top:15px;'>No study sessions yet.</p>";
-        }
-    }
-
-    displaySessions();
-
-</script>
-
-</body>
-</html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyPulse</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f5f7;
+    color: #222;
+    padding: 25px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+header {
+    background: #202124;
+    color: white;
+    padding: 30px;
+    border-radius: 18px;
+    margin-bottom: 22px;
+}
+
+header h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #d5d5d5;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 15px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat p {
+    color: #777;
+}
+
+.stat h2 {
+    margin-top: 8px;
+    font-size: 27px;
+}
+
+.section {
+    background: white;
+    padding: 22px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+}
+
+.section h2 {
+    margin-bottom: 15px;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 9px;
+    border: 1px solid #ddd;
+    font-size: 15px;
+}
+
+button {
+    background: #202124;
+    color: white;
+    border
