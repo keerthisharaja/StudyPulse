@@ -1,204 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StudyPulse</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyPulse</title>
 
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background: #f3f5f7;
-    color: #222;
-    padding: 25px;
-}
-
-.container {
-    max-width: 1000px;
-    margin: auto;
-}
-
-header {
-    background: #202124;
-    color: white;
-    padding: 30px;
-    border-radius: 18px;
-    margin-bottom: 22px;
-}
-
-header h1 {
-    font-size: 32px;
-    margin-bottom: 8px;
-}
-
-header p {
-    color: #d5d5d5;
-}
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.card {
-    background: white;
-    padding: 22px;
-    border-radius: 15px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
-}
-
-.stat {
-    text-align: center;
-}
-
-.stat p {
-    color: #777;
-}
-
-.stat h2 {
-    margin-top: 8px;
-    font-size: 27px;
-}
-
-.section {
-    background: white;
-    padding: 22px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
-}
-
-.section h2 {
-    margin-bottom: 15px;
-}
-
-input,
-select,
-button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border-radius: 9px;
-    border: 1px solid #ddd;
-    font-size: 15px;
-}
-
-button {
-    background: #202124;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    opacity: 0.85;
-}
-
-.progress {
-    height: 14px;
-    background: #e1e1e1;
-    border-radius: 20px;
-    overflow: hidden;
-    margin: 12px 0;
-}
-
-.progress-bar {
-    height: 100%;
-    width: 0%;
-    background: #202124;
-    transition: 0.4s;
-}
-
-.session {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.session:last-child {
-    border-bottom: none;
-}
-
-.session p {
-    color: #666;
-    margin-top: 5px;
-}
-
-.delete {
-    width: auto;
-    background: #d9534f;
-    padding: 8px 13px;
-    margin: 0;
-}
-
-.clear {
-    background: #d9534f;
-    margin-top: 15px;
-}
-
-.subject-row {
-    margin-bottom: 15px;
-}
-
-.subject-name {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-}
-
-.small-progress {
-    height: 8px;
-    background: #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.small-bar {
-    height: 100%;
-    background: #202124;
-}
-
-.goal-box {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-.message {
-    text-align: center;
-    color: #777;
-    padding: 15px;
-}
-
-@media (max-width: 750px) {
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
     }
-}
 
-@media (max-width: 500px) {
     body {
-        padding: 12px;
+      background: #131517;
+      color: white;
+      padding: 25px;
     }
 
-    .cards {
-        grid-template-columns: 1fr;
+    .container {
+      max-width: 1000px;
+      margin: auto;
     }
 
-    .goal-box {
-        grid-template-columns: 1fr;
+    header {
+      text-align: center;
+      margin-bottom: 30px;
     }
 
     header h1 {
-        font-size: 26px;
+      font-size: 42px;
+      margin-bottom: 10px;
     }
+
+    header p {
+      color: #aaa;
+      font-size: 17px;
+    }
+
+    .card {
+      background: #1d2024;
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      margin-bottom: 15px;
+    }
+
+    .input-box {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #ffffff;
+      color: #131517;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    #taskList {
+      margin-top: 20px;
+      list-style: none;
+    }
+
+    #taskList li {
+      background: #292d32;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
+
+    .footer {
+      text-align: center;
+      color: #777;
+      margin-top: 30px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <header>
+      <h1>StudyPulse</h1>
+      <p>Your simple study companion</p>
+    </header>
+
+    <div class="card">
+      <h2>Add a Study Task</h2>
+
+      <input
+        type="text"
+        id="taskInput"
+        class="input-box"
+        placeholder="Enter your study task..."
+      >
+
+      <button onclick="addTask()">Add Task</button>
+
+      <ul id="taskList"></ul>
+    </div>
+
+    <div class="card">
+      <h2>Study Tips</h2>
+      <p>• Study in focused sessions.</p>
+      <br>
+      <p>• Take short breaks between sessions.</p>
+      <br>
+      <p>• Keep your phone away while studying.</p>
+    </div>
+
+    <div class="footer">
+      StudyPulse © 2026
+    </div>
+
+  </div>
+
+  <script>
+    function addTask() {
+      const input = document.getElementById("taskInput");
+      const task = input.value.trim();
+
+      if (task === "") {
+        alert("Please enter a study task.");
+        return;
+      }
+
+      const li = document.createElement("li");
+      li.textContent = task;
+
+      document.getElementById("taskList").appendChild(li);
+
+      input.value = "";
+    }
+  </script>
+
+</body>
+</html>
