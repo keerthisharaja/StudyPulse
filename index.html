@@ -1,156 +1,833 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StudyPulse</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyPulse | Student Dashboard</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #0f1115;
+    color: #f5f5f5;
+    min-height: 100vh;
+}
+
+header {
+    background: #171a21;
+    padding: 20px 7%;
+    border-bottom: 1px solid #292d35;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #8b7cff;
+}
+
+header small {
+    color: #999;
+}
+
+.container {
+    width: 86%;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+.welcome {
+    margin-bottom: 25px;
+}
+
+.welcome h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.welcome p {
+    color: #999;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.stat {
+    background: #181b22;
+    border: 1px solid #292d35;
+    border-radius: 15px;
+    padding: 22px;
+}
+
+.stat h3 {
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.stat strong {
+    font-size: 28px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.card {
+    background: #181b22;
+    border: 1px solid #292d35;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.card h2 {
+    margin-bottom: 18px;
+    font-size: 21px;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 13px;
+    margin-bottom: 12px;
+    background: #101218;
+    color: white;
+    border: 1px solid #343943;
+    border-radius: 8px;
+    outline: none;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+button {
+    background: #8b7cff;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.timer {
+    text-align: center;
+}
+
+.timer-display {
+    font-size: 55px;
+    font-weight: bold;
+    margin: 20px 0;
+    letter-spacing: 2px;
+}
+
+.timer-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.secondary {
+    background: #292d35;
+}
+
+.progress-bar {
+    height: 12px;
+    background: #292d35;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.progress {
+    height: 100%;
+    width: 0%;
+    background: #8b7cff;
+    transition: 0.4s;
+}
+
+.item {
+    background: #101218;
+    border: 1px solid #292d35;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.item h4 {
+    margin-bottom: 5px;
+}
+
+.item small {
+    color: #999;
+}
+
+.delete {
+    float: right;
+    background: #333741;
+    padding: 6px 10px;
+    font-size: 12px;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.task input {
+    width: auto;
+    margin: 0;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: #777;
+}
+
+.empty {
+    color: #777;
+    text-align: center;
+    padding: 15px;
+}
+
+.goal-info {
+    display: flex;
+    justify-content: space-between;
+    color: #aaa;
+}
+
+footer {
+    text-align: center;
+    color: #666;
+    padding: 30px;
+}
+
+@media (max-width: 800px) {
+    .stats {
+        grid-template-columns: 1fr 1fr;
     }
 
-    body {
-      background: #131517;
-      color: white;
-      padding: 25px;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: auto;
+    .grid {
+        grid-template-columns: 1fr;
     }
 
     header {
-      text-align: center;
-      margin-bottom: 30px;
+        padding: 18px 5%;
     }
 
-    header h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
+    .container {
+        width: 92%;
+    }
+}
+
+@media (max-width: 500px) {
+    .stats {
+        grid-template-columns: 1fr;
     }
 
-    header p {
-      color: #aaa;
-      font-size: 17px;
+    .welcome h1 {
+        font-size: 26px;
     }
 
-    .card {
-      background: #1d2024;
-      padding: 25px;
-      border-radius: 15px;
-      margin-bottom: 20px;
+    .timer-display {
+        font-size: 42px;
     }
-
-    .card h2 {
-      margin-bottom: 15px;
-    }
-
-    .input-box {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 12px;
-      border-radius: 8px;
-      border: none;
-      font-size: 16px;
-    }
-
-    button {
-      padding: 12px 20px;
-      border: none;
-      border-radius: 8px;
-      background: #ffffff;
-      color: #131517;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      opacity: 0.85;
-    }
-
-    #taskList {
-      margin-top: 20px;
-      list-style: none;
-    }
-
-    #taskList li {
-      background: #292d32;
-      padding: 12px;
-      margin-bottom: 10px;
-      border-radius: 8px;
-    }
-
-    .footer {
-      text-align: center;
-      color: #777;
-      margin-top: 30px;
-      font-size: 14px;
-    }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
-  <div class="container">
+<header>
+    <div class="logo">Study<span>Pulse</span></div>
+    <small>Student Productivity Dashboard</small>
+</header>
 
-    <header>
-      <h1>StudyPulse</h1>
-      <p>Your simple study companion</p>
-    </header>
+<div class="container">
 
+    <div class="welcome">
+        <h1>Welcome to StudyPulse 👋</h1>
+        <p>Track your study time, notes, tasks and daily progress.</p>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="stats">
+
+        <div class="stat">
+            <h3>Today's Study Time</h3>
+            <strong id="todayHours">0h 0m</strong>
+        </div>
+
+        <div class="stat">
+            <h3>Study Sessions</h3>
+            <strong id="sessionCount">0</strong>
+        </div>
+
+        <div class="stat">
+            <h3>Tasks Completed</h3>
+            <strong id="completedTasks">0</strong>
+        </div>
+
+        <div class="stat">
+            <h3>Study Streak</h3>
+            <strong id="streak">1 day</strong>
+        </div>
+
+    </div>
+
+    <div class="grid">
+
+        <!-- TIMER -->
+        <div class="card timer">
+            <h2>Study Timer</h2>
+
+            <div class="timer-display" id="timer">
+                00:00:00
+            </div>
+
+            <div class="timer-buttons">
+                <button onclick="startTimer()">Start</button>
+                <button onclick="pauseTimer()" class="secondary">Pause</button>
+                <button onclick="resetTimer()" class="secondary">Reset</button>
+            </div>
+        </div>
+
+        <!-- GOAL -->
+        <div class="card">
+            <h2>Daily Study Goal</h2>
+
+            <input
+                type="number"
+                id="goalInput"
+                placeholder="Enter goal in hours"
+                min="1"
+            >
+
+            <button onclick="setGoal()">Set Goal</button>
+
+            <div style="margin-top:20px;" class="goal-info">
+                <span>Progress</span>
+                <span id="goalText">0 / 2 hours</span>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress" id="goalProgress"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- NOTES -->
     <div class="card">
-      <h2>Add a Study Task</h2>
+        <h2>📝 My Notes</h2>
 
-      <input
-        type="text"
-        id="taskInput"
-        class="input-box"
-        placeholder="Enter your study task..."
-      >
+        <input
+            type="text"
+            id="noteTitle"
+            placeholder="Note title"
+        >
 
-      <button onclick="addTask()">Add Task</button>
+        <select id="noteSubject">
+            <option value="General">General</option>
+            <option value="Python">Python</option>
+            <option value="AI & ML">AI & ML</option>
+            <option value="Database">Database</option>
+            <option value="Cloud Computing">Cloud Computing</option>
+            <option value="Other">Other</option>
+        </select>
 
-      <ul id="taskList"></ul>
+        <textarea
+            id="noteContent"
+            placeholder="Write your study notes here..."
+        ></textarea>
+
+        <button onclick="addNote()">Save Note</button>
+
+        <div id="notesList" style="margin-top:20px;"></div>
     </div>
 
+    <!-- TASKS -->
     <div class="card">
-      <h2>Study Tips</h2>
-      <p>• Study in focused sessions.</p>
-      <br>
-      <p>• Take short breaks between sessions.</p>
-      <br>
-      <p>• Keep your phone away while studying.</p>
+        <h2>✅ Study Tasks</h2>
+
+        <input
+            type="text"
+            id="taskInput"
+            placeholder="Enter a study task..."
+        >
+
+        <button onclick="addTask()">Add Task</button>
+
+        <div id="taskList" style="margin-top:20px;"></div>
     </div>
 
-    <div class="footer">
-      StudyPulse © 2026
+    <!-- SUBJECTS -->
+    <div class="card">
+        <h2>📚 Subjects</h2>
+
+        <select id="subjectSelect">
+            <option value="Python">Python</option>
+            <option value="AI & ML">AI & ML</option>
+            <option value="Database">Database</option>
+            <option value="Cloud Computing">Cloud Computing</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <input
+            type="number"
+            id="subjectHours"
+            placeholder="Hours studied"
+            min="0"
+        >
+
+        <button onclick="addSubject()">Add Study Hours</button>
+
+        <div id="subjectsList" style="margin-top:20px;"></div>
     </div>
 
-  </div>
+    <!-- STUDY TIPS -->
+    <div class="card">
+        <h2>💡 Study Tips</h2>
 
-  <script>
-    function addTask() {
-      const input = document.getElementById("taskInput");
-      const task = input.value.trim();
+        <div class="item">
+            <h4>Use focused sessions</h4>
+            <small>Study for 25–50 minutes and take a short break.</small>
+        </div>
 
-      if (task === "") {
-        alert("Please enter a study task.");
-        return;
-      }
+        <div class="item">
+            <h4>Make short notes</h4>
+            <small>Writing important concepts helps you remember them.</small>
+        </div>
 
-      const li = document.createElement("li");
-      li.textContent = task;
+        <div class="item">
+            <h4>Track your progress</h4>
+            <small>Small daily progress can create strong study habits.</small>
+        </div>
+    </div>
 
-      document.getElementById("taskList").appendChild(li);
+</div>
 
-      input.value = "";
+<footer>
+    StudyPulse © 2026 | Student Productivity Tracker
+</footer>
+
+
+<script>
+
+let timerSeconds = 0;
+let timerInterval = null;
+
+let studySeconds = Number(localStorage.getItem("studySeconds")) || 0;
+let sessions = Number(localStorage.getItem("sessions")) || 0;
+
+let notes = JSON.parse(localStorage.getItem("notes")) || [];
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let subjects = JSON.parse(localStorage.getItem("subjects")) || {};
+
+let goal = Number(localStorage.getItem("goal")) || 2;
+
+
+/* TIMER */
+
+function startTimer() {
+
+    if (timerInterval !== null) return;
+
+    timerInterval = setInterval(function() {
+
+        timerSeconds++;
+
+        updateTimerDisplay();
+
+    }, 1000);
+}
+
+
+function pauseTimer() {
+
+    if (timerInterval !== null) {
+
+        clearInterval(timerInterval);
+
+        timerInterval = null;
+
+        if (timerSeconds > 0) {
+
+            studySeconds += timerSeconds;
+
+            sessions++;
+
+            localStorage.setItem("studySeconds", studySeconds);
+            localStorage.setItem("sessions", sessions);
+
+            timerSeconds = 0;
+
+            updateDashboard();
+        }
     }
-  </script>
+}
+
+
+function resetTimer() {
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+    timerSeconds = 0;
+
+    updateTimerDisplay();
+}
+
+
+function updateTimerDisplay() {
+
+    let hours = Math.floor(timerSeconds / 3600);
+
+    let minutes = Math.floor((timerSeconds % 3600) / 60);
+
+    let seconds = timerSeconds % 60;
+
+    document.getElementById("timer").textContent =
+        String(hours).padStart(2, "0") + ":" +
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+}
+
+
+/* DASHBOARD */
+
+function updateDashboard() {
+
+    let hours = Math.floor(studySeconds / 3600);
+
+    let minutes = Math.floor((studySeconds % 3600) / 60);
+
+    document.getElementById("todayHours").textContent =
+        hours + "h " + minutes + "m";
+
+    document.getElementById("sessionCount").textContent = sessions;
+
+    let completed = tasks.filter(function(task) {
+        return task.completed;
+    }).length;
+
+    document.getElementById("completedTasks").textContent = completed;
+
+    document.getElementById("streak").textContent = "1 day";
+
+    updateGoal();
+
+    renderTasks();
+}
+
+
+/* GOAL */
+
+function setGoal() {
+
+    let value = Number(document.getElementById("goalInput").value);
+
+    if (value > 0) {
+
+        goal = value;
+
+        localStorage.setItem("goal", goal);
+
+        updateGoal();
+
+        document.getElementById("goalInput").value = "";
+    }
+}
+
+
+function updateGoal() {
+
+    let currentHours = studySeconds / 3600;
+
+    let percentage = Math.min((currentHours / goal) * 100, 100);
+
+    document.getElementById("goalProgress").style.width =
+        percentage + "%";
+
+    document.getElementById("goalText").textContent =
+        currentHours.toFixed(1) + " / " + goal + " hours";
+}
+
+
+/* NOTES */
+
+function addNote() {
+
+    let title = document.getElementById("noteTitle").value.trim();
+
+    let subject = document.getElementById("noteSubject").value;
+
+    let content = document.getElementById("noteContent").value.trim();
+
+    if (title === "" || content === "") {
+
+        alert("Please enter a title and note.");
+
+        return;
+    }
+
+    notes.push({
+        title: title,
+        subject: subject,
+        content: content
+    });
+
+    localStorage.setItem("notes", JSON.stringify(notes));
+
+    document.getElementById("noteTitle").value = "";
+    document.getElementById("noteContent").value = "";
+
+    renderNotes();
+}
+
+
+function renderNotes() {
+
+    let container = document.getElementById("notesList");
+
+    if (notes.length === 0) {
+
+        container.innerHTML =
+            '<div class="empty">No notes yet.</div>';
+
+        return;
+    }
+
+    container.innerHTML = "";
+
+    notes.forEach(function(note, index) {
+
+        let div = document.createElement("div");
+
+        div.className = "item";
+
+        div.innerHTML = `
+            <button class="delete" onclick="deleteNote(${index})">
+                Delete
+            </button>
+
+            <h4>${note.title}</h4>
+
+            <small>${note.subject}</small>
+
+            <p style="margin-top:10px;">
+                ${note.content}
+            </p>
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+
+function deleteNote(index) {
+
+    notes.splice(index, 1);
+
+    localStorage.setItem("notes", JSON.stringify(notes));
+
+    renderNotes();
+}
+
+
+/* TASKS */
+
+function addTask() {
+
+    let input = document.getElementById("taskInput");
+
+    let text = input.value.trim();
+
+    if (text === "") {
+
+        alert("Please enter a task.");
+
+        return;
+    }
+
+    tasks.push({
+        text: text,
+        completed: false
+    });
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+    input.value = "";
+
+    updateDashboard();
+}
+
+
+function toggleTask(index) {
+
+    tasks[index].completed = !tasks[index].completed;
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+    updateDashboard();
+}
+
+
+function deleteTask(index) {
+
+    tasks.splice(index, 1);
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+    updateDashboard();
+}
+
+
+function renderTasks() {
+
+    let container = document.getElementById("taskList");
+
+    if (tasks.length === 0) {
+
+        container.innerHTML =
+            '<div class="empty">No study tasks yet.</div>';
+
+        return;
+    }
+
+    container.innerHTML = "";
+
+    tasks.forEach(function(task, index) {
+
+        let div = document.createElement("div");
+
+        div.className = "item task";
+
+        div.innerHTML = `
+            <input
+                type="checkbox"
+                ${task.completed ? "checked" : ""}
+                onchange="toggleTask(${index})"
+            >
+
+            <span class="${task.completed ? "completed" : ""}">
+                ${task.text}
+            </span>
+
+            <button
+                class="delete"
+                onclick="deleteTask(${index})">
+                Delete
+            </button>
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+
+/* SUBJECTS */
+
+function addSubject() {
+
+    let subject =
+        document.getElementById("subjectSelect").value;
+
+    let hours =
+        Number(document.getElementById("subjectHours").value);
+
+    if (hours <= 0) {
+
+        alert("Enter valid study hours.");
+
+        return;
+    }
+
+    subjects[subject] =
+        (subjects[subject] || 0) + hours;
+
+    localStorage.setItem(
+        "subjects",
+        JSON.stringify(subjects)
+    );
+
+    document.getElementById("subjectHours").value = "";
+
+    renderSubjects();
+}
+
+
+function renderSubjects() {
+
+    let container =
+        document.getElementById("subjectsList");
+
+    container.innerHTML = "";
+
+    let keys = Object.keys(subjects);
+
+    if (keys.length === 0) {
+
+        container.innerHTML =
+            '<div class="empty">No subject data yet.</div>';
+
+        return;
+    }
+
+    keys.forEach(function(subject) {
+
+        let div = document.createElement("div");
+
+        div.className = "item";
+
+        div.innerHTML = `
+            <h4>${subject}</h4>
+            <small>${subjects[subject]} hour(s) studied</small>
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+
+/* LOAD DATA */
+
+renderNotes();
+
+renderSubjects();
+
+updateDashboard();
+
+updateTimerDisplay();
+
+</script>
 
 </body>
 </html>
