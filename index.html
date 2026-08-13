@@ -80,7 +80,9 @@ header p {
     margin-bottom: 15px;
 }
 
-input, select, button {
+input,
+select,
+button {
     width: 100%;
     padding: 12px;
     margin-top: 10px;
@@ -92,4 +94,111 @@ input, select, button {
 button {
     background: #202124;
     color: white;
-    border
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.progress {
+    height: 14px;
+    background: #e1e1e1;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 12px 0;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #202124;
+    transition: 0.4s;
+}
+
+.session {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.session:last-child {
+    border-bottom: none;
+}
+
+.session p {
+    color: #666;
+    margin-top: 5px;
+}
+
+.delete {
+    width: auto;
+    background: #d9534f;
+    padding: 8px 13px;
+    margin: 0;
+}
+
+.clear {
+    background: #d9534f;
+    margin-top: 15px;
+}
+
+.subject-row {
+    margin-bottom: 15px;
+}
+
+.subject-name {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.small-progress {
+    height: 8px;
+    background: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.small-bar {
+    height: 100%;
+    background: #202124;
+}
+
+.goal-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.message {
+    text-align: center;
+    color: #777;
+    padding: 15px;
+}
+
+@media (max-width: 750px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    body {
+        padding: 12px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .goal-box {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 26px;
+    }
